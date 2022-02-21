@@ -22,6 +22,15 @@
                             {{$post->category->name}}
                         </div>
                     @endif
+
+                    @if (count($post->tags) > 0)
+                    <div class="card-body">
+                        <strong>Tags:</strong>
+                        @foreach ($post->tags as $tag)
+                            <span class="badge badge-primary">{{$tag->name}}</span>
+                        @endforeach
+                    </div>
+                    @endif
                     {{$post->content}}
                     <div class="mt-3">
                         <a href="{{route("posts.edit", $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a>

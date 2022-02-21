@@ -38,6 +38,23 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <p>Tags</p>
+
+                            @foreach ($tags as $tag)
+                                <div class="form-check form-check-inline">
+                                    @if (old("tags"))
+                                    <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{in_array( $tag->id, old("tags", [])) ? "checked" : ""}}>
+                                    @else
+                                    <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{$post->tags->contains($tag) ? "checked" : ""}}>
+                                    @endif
+                                    <label class="form-check-label" for="{{$tag->slug}}">{{$tag->name}}</label>
+                                </div>
+                            @endforeach
+                            @error('tags')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="form-group form-check">
                             @php
                                 $published = old("published") ? old("published") : $post->published;
